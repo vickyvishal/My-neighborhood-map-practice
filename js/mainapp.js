@@ -5,7 +5,7 @@ var locations = [{
             lat: 37.793945,
             lng: -122.407079
         },
-        type: ["Home"],
+        type: ["PokeStop"],
         id: '4a788bcdf964a520d9e51fe3',
     },{
         title: 'Diamond District',
@@ -26,11 +26,11 @@ var locations = [{
     }, {
         title: '100 Feet Road',
         location: {
-            lat: 37.794188,
-            lng: -122.404117
+            lat: 37.7842829,
+            lng: -122.425022
         },
         type: ["PokeStop"],
-        id: '4abfdac7f964a5209f9220e3',
+        id: 'ChIJwYFp4L2AhYARqOLyYQeUOOc',
     }, {
         title: 'Brookfield',
         location: {
@@ -39,6 +39,14 @@ var locations = [{
         },
         type: ["PokeStop"],
         id: '49eaa620f964a52087661fe3',
+	},	{
+		title: 'Main Poskestop',
+        location: {
+            lat: 37.7620333,
+            lng: -122.4347591
+        },
+        type: ["PokeStop"],
+        id: 'ChIJeWH4Txt-j4ARJZQ5pivU-hQ',
     }];	
 	//model
 var Location = function(data) {
@@ -145,7 +153,7 @@ function initMap() {//style reference during course video
 	
 	//created the map and deployed in div with id map. Required property center and zoom
 	map = new google.maps.Map(document.getElementById('map'), {
-		center: {lat: 37.763695, lng: -122.479830},
+		center: {lat: 37.7620333, lng: -122.4347591},
 		zoom: 13,
 		styles: styles,
 		mapTypeControl: false
@@ -215,7 +223,7 @@ function initMap() {//style reference during course video
 
 function makeMarkerIcon(beforeAfter, type) {
 
-    var markerImage = new google.maps.MarkerImage(	'img/' + type + '_' + beforeAfter + '.svg',
+    var markerImage = new google.maps.MarkerImage(	'img/' + type + '_' + beforeAfter + '.png',
         new google.maps.Size(64, 64),
         new google.maps.Point(0, 0),
         new google.maps.Point(32, 64),
@@ -223,7 +231,7 @@ function makeMarkerIcon(beforeAfter, type) {
         return markerImage;
 }
 
-function populateInfoWindow(marker, infowindow){ //this function render the information into info window. It takes 2 parameter marker and infowindow
+function populateInfoWindow(marker, infowindow){	 //this function render the information into info window. It takes 2 parameter marker and infowindow
         // Check to make sure the infowindow is not already opened on this marker.
         if (infowindow.marker != marker) {//if infowindow's marker parameter is not equal to the passed marker
           // Clear the infowindow content to give the streetview time to load.
