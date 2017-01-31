@@ -14,9 +14,9 @@
 	<body>
 		<div class="container">
 			<div id="search-div" class="aside">
-				<p> Pokestop around me </p>
-        		<span class="glyphicon glyphicon-search"></span>
-        		<input class="search-field" id="searchbox" type="text" placeholder="What are you searching for?" data-bind="textInput: query">  
+				<p>Pokestops</p>
+					<span class="glyphicon glyphicon-search"></span>
+					<input class="search-field" id="searchbox" type="text" placeholder="What are you searching for?" data-bind="textInput: query">  
         		<hr>
         		<div class ="error" data-bind="visible: mapErrorMessage">
           			<h5>Google Map is currently not loading. Please try again later.</h5>
@@ -37,7 +37,7 @@
 		<div id="map" class="main"></div>
 	</body>
 	<script src="js/mainapp.js"></script>
-	<script src="js/knockout-3.4.0.js"></script>
+	<script src="js/knockout-3.4.1.js"></script>
 	<script async defer
         src=
         "https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDkQD6EFoSl3IMVJBKlZ93PmHdHmgQEv7U&v=3&callback=initMap">
