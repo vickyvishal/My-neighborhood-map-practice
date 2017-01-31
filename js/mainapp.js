@@ -192,16 +192,15 @@ function initMap() {//style reference during course video
 	var largeInfowindow = new google.maps.InfoWindow();
 	for (var i = 0; i < viewModel.filteredLocations().length; i++) {//iterating through the array which contains all the locations
 		var locId = viewModel.filteredLocations()[i].id;
-		var bizId = viewModel.filteredLocations()[i].bizId;
 		var position = viewModel.filteredLocations()[i].location;
 		var title = viewModel.filteredLocations()[i].title;
 		var type = viewModel.filteredLocations()[i].type;
 
 		// Style the marker a bit. This will be our listing marker icon.
-    	var defaultIcon = makeMarkerIcon('Before', type);
+    	var defaultIcon = makeMarkerIcon('0091ff');
 
    		// Create a "highlighted location" marker color for when the user mouse over the marker.
-    	var highlightedIcon = makeMarkerIcon('After', type);
+    	var highlightedIcon = makeMarkerIcon('FFFF24');
 
 		// Create a marker per location, and put into marker array.
 		var marker = new google.maps.Marker({
@@ -236,17 +235,18 @@ function initMap() {//style reference during course video
 	}
 }
 
-function makeMarkerIcon(beforeAfter, type) {
-
-    var markerImage = new google.maps.MarkerImage('img/' + type + '_' + beforeAfter + '.svg',
-        new google.maps.Size(64, 64),
-        new google.maps.Point(0, 0),
-        new google.maps.Point(32, 64),
-        new google.maps.Size(64, 64));
+function makeMarkerIcon(markerColor) {
+        var markerImage = new google.maps.MarkerImage(
+          'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
+          '|40|_|%E2%80%A2',
+          new google.maps.Size(21, 34),
+          new google.maps.Point(0, 0),
+          new google.maps.Point(10, 34),
+          new google.maps.Size(21,34));
         return markerImage;
-}
+      }
 
-function populateInfoWindow(marker, infoWindow){ //this function render the information into info window. It takes 2 parameter marker and infowindow
+/*function populateInfoWindow(marker, infoWindow){ //this function render the information into info window. It takes 2 parameter marker and infowindow
         // Check to make sure the infowindow is not already opened on this marker.
         if (infowindow.marker != marker) {//if infowindow's marker parameter is not equal to the passed marker
           // Clear the infowindow content to give the streetview time to load.
@@ -286,6 +286,23 @@ function populateInfoWindow(marker, infoWindow){ //this function render the info
           streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
           // Open the infowindow on the correct marker.
           infowindow.open(map, marker);
+        }
+	}*/
+	
+function showListings() {
+        var bounds = new google.maps.LatLngBounds();
+        // Extend the boundaries of the map for each marker and display the marker
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(map);
+          bounds.extend(markers[i].position);
+        }
+        map.fitBounds(bounds);
+      }
+
+      // This function will loop through the listings and hide them all.
+      function hideMarkers(markers) {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
         }
       }
 
