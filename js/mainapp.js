@@ -158,19 +158,6 @@ function initMap() {//style reference during course video
 		styles: styles,
 		mapTypeControl: false
 	});
-
-	
-	//initializing a drawing manager, chose polygon
-	var drawingManager = new google.maps.drawing.DrawingManager({
-          drawingMode: google.maps.drawing.OverlayType.POLYGON,
-          drawingControl: true,
-          drawingControlOptions: {
-            position: google.maps.ControlPosition.TOP_LEFT,
-            drawingModes: [
-              google.maps.drawing.OverlayType.POLYGON
-            ]
-          }
-        });
 		
 	//initializing a google map function for info window
 	var largeInfowindow = new google.maps.InfoWindow();
