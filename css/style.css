@@ -1,0 +1,191 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    padding-top: 0;
+}
+
+p {
+    text-align: center;
+    text-shadow: 0.5px 0.5px 2px #eaeaea;
+    font-size: 32px;
+    font-weight: 600;
+    padding: 8px 0px 8px 0px;
+}
+
+@media screen and (max-width: 768px) {
+    p {
+        text-align: center;
+        text-shadow: 0.5px 0.5px 2px #eaeaea;
+        font-size: 25px;
+        font-weight: 600;
+        padding: 8px 0px 8px 0px;
+    } 
+}
+@media screen and (max-width: 413px) {
+    p {
+        text-align: center;
+        text-shadow: 0.3px 0.3px 1px #eaeaea;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 1px 0px 1px 0px;
+    } 
+}
+
+.infowindow {
+    text-align: center;
+}
+
+.container {
+    height: 100%;
+    position: absolute;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+@media screen and (max-width: 413px) {
+    .container {
+        padding-right: 0px;
+        padding-left: 0px;
+    } 
+}
+
+.aside {
+      background: #fff;
+      border: 1px solid #999;
+      border-radius: 5px;
+      height: 100%;
+      line-height: 35px;
+      padding: 10px 10px 30px 10px;
+      text-align: left;
+      width: 340px;
+     }
+
+@media screen and (max-width: 768px) {
+    .aside {
+        width: 260px;
+    } 
+}
+
+@media screen and (max-width: 413px) {
+    .aside {
+        width: 140px;
+    } 
+}
+
+#search-div {
+    background-color: #777;
+    padding-right: 2%;
+    padding-left: 2%; 
+}
+
+#search-div .glyphicon-search {
+    background-color: #f1860a;
+    border-bottom: 0.5px solid #f1860a;
+    color: white;
+    font-size: 14px;
+    padding: 20px;
+    position: absolute;
+    text-shadow: 0.5px 0.5px 2px gray;
+    top: 82px;
+    z-index: 2; 
+}
+
+@media screen and (max-width: 768px) {
+    #search-div .glyphicon-search {
+        border-bottom: none;
+        font-size: 10.5px;
+        padding: 12.5px; 
+    } 
+}
+@media screen and (max-width: 413px) {
+    #search-div .glyphicon-search {
+        border-bottom: none;
+        font-size: 12px;
+        padding: 11.5px; 
+        top: 68px;
+    } 
+}
+
+#search-div .search-field {
+    background-color: white;
+    border: none;
+    border-radius: 0;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    opacity: 0.85;
+    padding: 10px 10px 10px 80px;
+    position: relative;
+    width: 100%;
+    z-index: 1; 
+}
+
+#search-div .search-field:hover, #search-div .search-field:focus {
+    opacity: 1; 
+}
+
+@media screen and (max-width: 768px) {
+    #search-div .search-field {
+        font-size: 12px;
+        padding: 0px 7.5px 0px 42px; 
+        width : 100%;
+    } 
+}
+
+@media screen and (max-width: 413px) {
+    #search-div .search-field {
+        font-size: 10px;
+        padding: 0px 7px 0px 34px; 
+        width : 100%;
+    } 
+}
+
+@media screen and (max-width: 413px) {
+    .list_container {
+        font-size: 10px;
+        padding: 0px 0px 0px 0px; 
+        width : 100%;
+    } 
+    ul {
+        padding-left: 15px;
+    }
+}
+
+#map {
+    height: 100%;
+    bottom: 0px;
+    left: 350px;
+    position: absolute;
+    right: 0px;
+    opacity: 0.85; 
+}
+
+@media screen and (max-width: 768px) {
+    #map {
+       height: 100%;
+        bottom: 0px;
+        left: 270px;
+        position: absolute;
+        right: 0px;
+        opacity: 0.85; 
+    } 
+}
+
+@media screen and (max-width: 413px) {
+    #map {
+       height: 100%;
+        bottom: 0px;
+        left: 141px;
+        position: absolute;
+        right: 0px;
+        opacity: 0.85; 
+    } 
+}
+
