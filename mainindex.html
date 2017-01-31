@@ -1,0 +1,45 @@
+<html>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="A neighborhood map of Monterey Park, CA">
+  		<meta name="author" content="Vicky Vishal">
+		<meta http-equiv="Catch-control" content="public">
+		<title>My Neighborhood Map Project</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link href="css/style.css" rel="stylesheet">
+	</head>
+	
+	<body>
+		<div class="container">
+			<div id="search-div" class="aside">
+				<p> Pokestop around me </p>
+        		<span class="glyphicon glyphicon-search"></span>
+        		<input class="search-field" id="searchbox" type="text" placeholder="What are you searching for?" data-bind="textInput: query">  
+        		<hr>
+        		<div class ="error" data-bind="visible: mapErrorMessage">
+          			<h5>Google Map is currently not loading. Please try again later.</h5>
+          			<hr>
+        		</div>
+        		<div class ="error" data-bind="visible: apiErrorMessage">
+          			<h5>Yelp data is currently not available. Please try again later.</h5>
+          			<hr>
+        		</div>
+        		<div class="list_container">
+            		<ul data-bind="foreach: filteredLocations">
+             		 <li class="list_element location" data-bind="text: title, click: $parent.showInfo, visible: show"></li>
+            		</ul>
+            	</div>
+            	<hr>      		
+    		</div>
+    	</div>
+		<div id="map" class="main"></div>
+	</body>
+	<script src="js/mainapp.js"></script>
+	<script src="js/knockout-3.4.0.js"></script>
+	<script async defer
+        src=
+        "https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDkQD6EFoSl3IMVJBKlZ93PmHdHmgQEv7U&v=3&callback=initMap">
+    </script>
+</html>
