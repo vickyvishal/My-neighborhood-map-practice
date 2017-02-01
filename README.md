@@ -17,8 +17,8 @@
 4. Should be responsive.
 
 ##Viewing the page
-1. Download the zip format
-2. Clone it using gitbash
+1. Download the zip format and double click on mainapp.html to open it in your browser
+2. Clone it using gitbash and double click on mainapp.html to open it in your browser
 
 ##Pokestop in restaurant
 1. Responsive page using Twitter's Bootstrap
