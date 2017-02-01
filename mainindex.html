@@ -8,23 +8,29 @@
 		<meta http-equiv="Catch-control" content="public">
 		<title>My Neighborhood Map Project</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-		<link href="css/style.css" rel="stylesheet">
+		<style>.infowindow,p{text-align:center}#map,.aside,.container{height:100%}body{font-family:Lato,sans-serif;font-weight:300;padding:0}p{text-shadow:.5px .5px 2px #eaeaea;font-size:32px;font-weight:600;padding:8px 0}.container{position:absolute}.aside{background:#fff;border:1px solid #999;border-radius:5px;line-height:35px;text-align:left;width:340px}#search-div{background-color:#777;padding-right:2%;padding-left:2%;text-align:center}#search-div .glyphicon-search{background-color:#f1860a;border-bottom:.5px solid #f1860a;color:#fff;font-size:14px;padding:20px;position:absolute;text-shadow:.5px .5px 2px gray;top:82px;z-index:2}#search-div .search-field{background-color:#fff;border:none;border-radius:0;font-size:16px;margin-top:10px;margin-bottom:10px;opacity:.85;padding:10px 10px 10px 80px;position:relative;width:100%;z-index:1}#search-div .search-field:focus,#search-div .search-field:hover{opacity:1}#map{bottom:0}#entry{margin:auto}</style>
 		<script src="js/knockout-3.4.1.js"></script>
 	</head>
 	
 	<body>
 		<div class="container">
-			<div id="search-div" class="aside">
-				<p>Pokestops</p>
+			<div class="rows">
+			<div id="search-div" class="col-md-3">
+				<div id="pokemon" class="row">
+					<h2>Gotta Catch'em all</h2>
+					<em>and dine when tired!</em>
+				</div>
+				<div id="entry" class="row">
 					<span class="glyphicon glyphicon-search"></span>
-					<input class="search-field" id="searchbox" type="text" placeholder="What are you searching for?" data-bind="textInput: query">  
+					<input class="search-field" id="searchbox" type="text" placeholder="What are you searching for?" data-bind="textInput: query"> 
+				</div>
         		<hr>
         		<div class ="error" data-bind="visible: mapErrorMessage">
-          			<h5>Google Map is currently not loading. Please try again later.</h5>
+          			<h5>oops, there is some error</h5>
           			<hr>
         		</div>
         		<div class ="error" data-bind="visible: apiErrorMessage">
-          			<h5>Yelp data is currently not available. Please try again later.</h5>
+          			<h5>oops, there is some error</h5>
           			<hr>
         		</div>
         		<div class="list_container">
@@ -32,11 +38,10 @@
              		 <li class="list_element location" data-bind="text: title, click: $parent.showInfo, visible: show"></li>
             		</ul>
 					<hr>
-					<p data-bind="text: information"><p>
-            	</div>     		
+            	</div>
     		</div>
+		<div id="map" class="col-md-9"></div>
     	</div>
-		<div id="map" class="main"></div>
 	</body>
 	<script src="js/mainapp.js"></script>
 	<script src="js/knockout-3.4.1.js"></script>
