@@ -19,7 +19,6 @@
 ##Viewing the page
 1. Download the zip format
 2. Clone it using gitbash
-3. Using direct link
 
 ##Pokestop in restaurant
 1. Minified CSS for faster Load
