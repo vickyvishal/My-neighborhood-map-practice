@@ -2,9 +2,9 @@
 the lat long are from Los ang,Ca as foursquare 
 do not have enough data in my locality*/
 
-var locations = [{
-	
-        title: 'Marathalli Bridge',
+var locations = [
+	{
+		title: 'Marathalli Bridge',
         location: {
             lat: 37.793945,
             lng: -122.407079
@@ -57,7 +57,19 @@ var locations = [{
         type: ["PokeStop"],//to be used to read the image from the drive
 		chance: ["25 pokemon/hour"],//hardcoded info to be used in my infoWindow
         id: '432a0b00f964a520d7271fe3',//venueid from foursquare
-    }];	
+    },
+	{
+		title: '100 Pokemons!',
+			location: {
+				lat: 37.7620322,
+				lng: -122.4047999
+			},
+			type: ["PokeStop"],//to be used to read the image from the drive
+			chance: ["25 pokemon/hour"],//hardcoded info to be used in my infoWindow
+			id: '432a0b00f964a520d7271',//venueid from foursquare
+
+	}
+];	
 	
 	//model
 var Location = function(data) {
@@ -104,6 +116,9 @@ var ViewModel = function() {
 			}
 		}
 	});
+		self.showInfo = function(locations) {
+		google.maps.event.trigger(locations.marker, 'click');
+	};
 };
 
 var map;
@@ -204,7 +219,7 @@ function initMap() {//style reference from course video
 	}
 }
 
-	//initializing a google map function for info window
+//initializing a google map function for info window
 var largeInfowindow;
 
 listner = function(marker){
@@ -262,18 +277,18 @@ function populateInfoWindow(marker, infowindow){//this function render the infor
 						var formattedAddress = data.response.venue.location.formattedAddress;
 						infowindow.open(map, marker);
 						infowindow.setContent('<div>'+ venuename + '<br>'+ formattedAddress + '<br>' + marker.chance +'</div>');
-
-
 						/*callback function if succes - Will add the rating received from foursquare to the content of the info window*/
 						if (!data.response) {
 								data.response = 'No rating in foursquare';
 						}
 				},
-				error: function(data) {
-						/*callback function if error - an alert will be activaded to notify the user of the error*/
-						alert("Could not load data from foursquare.");
-				}
-		});
+				error: function () {
+    				console.log("oops some kind of technical error");
+    				viewModel.apiErrorMessage(true);
+    			}
+		})
+		
+		viewModel.apiErrorMessage(false);;
         }
 	}
 
