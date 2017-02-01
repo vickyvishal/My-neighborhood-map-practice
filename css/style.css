@@ -77,3 +77,7 @@ p {
 #entry{
 	margin: auto;
 }
+.error{
+	background-color: red;
+	color: white;
+}
