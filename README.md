@@ -1,7 +1,8 @@
 # My-neighborhood-map
 
 ##Overview
-This project was completed for Udacity's Front End Nanodegree Program. The goal of the project was:
+
+###This project was completed for Udacity's Front End Nanodegree Program. The goal of the project was:
 1. To have a list view of my choice of locations
 2. To append a google map and show the list of locations.
 3. To have a search bar which will display the filtered subset of location markers when a filter is applied.
