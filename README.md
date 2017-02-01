@@ -21,12 +21,11 @@
 2. Clone it using gitbash
 
 ##Pokestop in restaurant
-1. Minified CSS for faster Load
-2. Responsive page using Twitter's Bootstrap
-3. Address information from Foursquare, using Foursquare API
-4. Address is listed in list tab and can be filtered according to search box inputs.
-5. Address and harcoded information displayed in the infoWindow
-6. Used Knockout.js framework
+1. Responsive page using Twitter's Bootstrap
+2. Address information from Foursquare, using Foursquare API
+3. Address is listed in list tab and can be filtered according to search box inputs.
+4. Address and harcoded information displayed in the infoWindow
+5. Used Knockout.js framework
 
 ##Reference
 Udacity awesome discussion's forum.
