@@ -1,3 +1,7 @@
+/*used name from my locality although 
+the lat long are from Los ang,Ca as foursquare 
+do not have enough data in my locality*/
+
 var locations = [{
 	
         title: 'Marathalli Bridge',
@@ -5,49 +9,56 @@ var locations = [{
             lat: 37.793945,
             lng: -122.407079
         },
-        type: ["PokeStop"],
-        id: '4a788bcdf964a520d9e51fe3',
+        type: ["PokeStop"],//to be used to read the image from the drive
+		chance: ["5 pokemon/hour"],//hardcoded info to be used in my info head
+        id: '4a788bcdf964a520d9e51fe3',//venueid from foursquare
     },{
         title: 'Diamond District',
         location: {
             lat: 37.763695,
             lng: -122.479830
         },
-        type: ["PokeStop"],
-        id: '4b7629aff964a520f0402ee3',
+        type: ["PokeStop"],//to be used to read the image from the drive
+		chance: ["3 pokemon/hour"],//hardcoded info to be used in my info head
+        id: '4b7629aff964a520f0402ee3',//venueid from foursquare
     }, {
         title: 'Ecospace ',
         location: {
             lat: 37.738948,
             lng: -122.479902
         },
-        type: ["PokeStop"],
-        id: '4a918d27f964a520a81a20e3',
+        type: ["PokeStop"],//to be used to read the image from the drive
+		chance: ["17 pokemon/hour"],//hardcoded info to be used in my info head
+        id: '4a918d27f964a520a81a20e3',//venueid from foursquare
     }, {
         title: '100 Feet Road',
         location: {
-            lat: 37.7842829,
-            lng: -122.425022
+            lat: 37.785519,
+            lng: -122.421811
         },
-        type: ["PokeStop"],
-        id: 'ChIJwYFp4L2AhYARqOLyYQeUOOc',
+        type: ["PokeStop"],//to be used to read the image from the drive
+		chance: ["12 pokemon/hour"],//hardcoded info to be used in my info head
+        id: '3fd66200f964a520b7ed1ee3',//venueid from foursquare
     }, {
         title: 'Brookfield',
         location: {
             lat: 37.781281,
             lng: -122.463974
         },
-        type: ["PokeStop"],
-        id: '49eaa620f964a52087661fe3',
+        type: ["PokeStop"],//to be used to read the image from the drive
+		chance: ["7 pokemon/hour"],//hardcoded info to be used in my info head
+        id: '49eaa620f964a52087661fe3',//venueid from foursquare
 	},	{
 		title: 'Main Poskestop',
         location: {
             lat: 37.7620333,
             lng: -122.4347591
         },
-        type: ["PokeStop"],
-        id: 'ChIJeWH4Txt-j4ARJZQ5pivU-hQ',
+        type: ["PokeStop"],//to be used to read the image from the drive
+		chance: ["25 pokemon/hour"],//hardcoded info to be used in my info head
+        id: '432a0b00f964a520d7271fe3',//venueid from foursquare
     }];	
+	
 	//model
 var Location = function(data) {
 	var self = this;
@@ -55,6 +66,7 @@ var Location = function(data) {
 	self.location = data.location;
 	self.type = data.type;
 	self.id = data.id;
+	self.chance = data.chance;
 	self.show = ko.observable(true);
 	};
 
@@ -91,17 +103,13 @@ var ViewModel = function() {
 			}
 		}
 	});
-
-	self.showInfo = function(locations) {
-		google.maps.event.trigger(locations.marker, 'click');
-	};
 };
 
 var map;
 
 var markers = [];
       
-function initMap() {//style reference during course video
+function initMap() {//style reference from course video
 
 	var styles = [
 	{
@@ -154,10 +162,14 @@ function initMap() {//style reference during course video
 	//created the map and deployed in div with id map. Required property center and zoom
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: 37.7620333, lng: -122.4347591},
-		zoom: 13,
+		zoom: 12,
 		styles: styles,
 		mapTypeControl: false
 	});
+
+	
+	//initializing a drawing manager, chose polygon
+	
 		
 	//initializing a google map function for info window
 	var largeInfowindow = new google.maps.InfoWindow();
@@ -166,6 +178,7 @@ function initMap() {//style reference during course video
 		var position = viewModel.filteredLocations()[i].location;
 		var title = viewModel.filteredLocations()[i].title;
 		var type = viewModel.filteredLocations()[i].type;
+		var chance = viewModel.filteredLocations()[i].chance;
 
 		// Style the marker a bit. This will be our listing marker icon.
     	var defaultIcon = makeMarkerIcon('Before', type);
@@ -178,6 +191,7 @@ function initMap() {//style reference during course video
 			type: type,
 			position: position,
 			title: title,
+			chance: chance,
 			animation: google.maps.Animation.DROP,
 			icon: defaultIcon,
 			highlightedIcon: highlightedIcon,
@@ -198,7 +212,7 @@ function initMap() {//style reference during course video
         	}, 1400);
         	populateInfoWindow(this, largeInfowindow);//contents which will be displayed in the infomarker area
         });
-		// Two event listener - One for mouse over, one for mouse out. to change the color back and forth. 
+		// Two event listener - One for mouse over, one for mouse out. to change the marker image back and forth. 
         marker.addListener('mouseover', function() {
         	this.setIcon(this.highlightedIcon); 
         });
@@ -218,7 +232,7 @@ function makeMarkerIcon(beforeAfter, type) {
         return markerImage;
 }
 
-function populateInfoWindow(marker, infowindow){	 //this function render the information into info window. It takes 2 parameter marker and infowindow
+function populateInfoWindow(marker, infowindow){//this function render the information into info window. It takes 2 parameter marker and infowindow
         // Check to make sure the infowindow is not already opened on this marker.
         if (infowindow.marker != marker) {//if infowindow's marker parameter is not equal to the passed marker
           // Clear the infowindow content to give the streetview time to load.
@@ -233,22 +247,19 @@ function populateInfoWindow(marker, infowindow){	 //this function render the inf
 		  var CLIENT_SECRET_Foursquare = '&client_secret=0UTHYFC5UAFI5FQEXVAB5WIQREZCLCANHT3LU2FA2O05GW3D';
 
 	/*Foursquare api ajax request*/
-						$.ajax({
+						$.ajax({// reference: foursquare for developers
 								type: "GET",
 								dataType: 'json',
 								cache: false,
 								url: 'https://api.foursquare.com/v2/venues/' + marker.id + CLIENT_ID_Foursquare + CLIENT_SECRET_Foursquare + '&v=20170115',
 								async: true,
 								success: function(data) {
-										console.log(data.response);
-										console.log(data.response.venue.name);
-										console.log(data.response.venue.location.formattedAddress);
 					//Map info windows to each Location in the markers array
 										var venuename = data.response.venue.name;
 										var formattedAddress = data.response.venue.location.formattedAddress;
-										
-
-								marker.infowindow = infowindow;
+										console
+										infowindow.open(map, marker);
+										infowindow.setContent('<div>'+ venuename + '<br>'+ formattedAddress + '<br>' + marker.chance +'</div>');
 
 
 										/*callback function if succes - Will add the rating received from foursquare to the content of the info window*/
@@ -263,23 +274,6 @@ function populateInfoWindow(marker, infowindow){	 //this function render the inf
 						})
         }
 	}
-	
-function showListings() {
-        var bounds = new google.maps.LatLngBounds();
-        // Extend the boundaries of the map for each marker and display the marker
-        for (var i = 0; i < markers.length; i++) {
-          markers[i].setMap(map);
-          bounds.extend(markers[i].position);
-        }
-        map.fitBounds(bounds);
-      }
-
-      // This function will loop through the listings and hide them all.
-      function hideMarkers(markers) {
-        for (var i = 0; i < markers.length; i++) {
-          markers[i].setMap(null);
-        }
-      }
 
 var viewModel = new ViewModel(); //make a new instance of ViewModel function
 ko.applyBindings(viewModel);
