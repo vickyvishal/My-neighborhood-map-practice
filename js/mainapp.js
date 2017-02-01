@@ -10,7 +10,7 @@ var locations = [{
             lng: -122.407079
         },
         type: ["PokeStop"],//to be used to read the image from the drive
-		chance: ["5 pokemon/hour"],//hardcoded info to be used in my info head
+		chance: ["5 pokemon/hour"],//hardcoded info to be used in my infoWindow
         id: '4a788bcdf964a520d9e51fe3',//venueid from foursquare
     },{
         title: 'Diamond District',
@@ -19,7 +19,7 @@ var locations = [{
             lng: -122.479830
         },
         type: ["PokeStop"],//to be used to read the image from the drive
-		chance: ["3 pokemon/hour"],//hardcoded info to be used in my info head
+		chance: ["3 pokemon/hour"],//hardcoded info to be used in my infoWindow
         id: '4b7629aff964a520f0402ee3',//venueid from foursquare
     }, {
         title: 'Ecospace ',
@@ -28,7 +28,7 @@ var locations = [{
             lng: -122.479902
         },
         type: ["PokeStop"],//to be used to read the image from the drive
-		chance: ["17 pokemon/hour"],//hardcoded info to be used in my info head
+		chance: ["17 pokemon/hour"],//hardcoded info to be used in my infoWindow
         id: '4a918d27f964a520a81a20e3',//venueid from foursquare
     }, {
         title: '100 Feet Road',
@@ -37,7 +37,7 @@ var locations = [{
             lng: -122.421811
         },
         type: ["PokeStop"],//to be used to read the image from the drive
-		chance: ["12 pokemon/hour"],//hardcoded info to be used in my info head
+		chance: ["12 pokemon/hour"],//hardcoded info to be used in my infoWindow
         id: '3fd66200f964a520b7ed1ee3',//venueid from foursquare
     }, {
         title: 'Brookfield',
@@ -46,7 +46,7 @@ var locations = [{
             lng: -122.463974
         },
         type: ["PokeStop"],//to be used to read the image from the drive
-		chance: ["7 pokemon/hour"],//hardcoded info to be used in my info head
+		chance: ["7 pokemon/hour"],//hardcoded info to be used in my infoWindow
         id: '49eaa620f964a52087661fe3',//venueid from foursquare
 	},	{
 		title: 'Main Poskestop',
@@ -55,7 +55,7 @@ var locations = [{
             lng: -122.4347591
         },
         type: ["PokeStop"],//to be used to read the image from the drive
-		chance: ["25 pokemon/hour"],//hardcoded info to be used in my info head
+		chance: ["25 pokemon/hour"],//hardcoded info to be used in my infoWindow
         id: '432a0b00f964a520d7271fe3',//venueid from foursquare
     }];	
 	
@@ -95,7 +95,8 @@ var ViewModel = function() {
 				if (self.filteredLocations()[i].marker) {//if it has a marker
 					self.filteredLocations()[i].marker.setVisible(true);//show the marker
 				}
-			} else {
+			} 
+			else {
 				self.filteredLocations()[i].show(false);//else don't show
 				if (self.filteredLocations()[i].marker) {
 					self.filteredLocations()[i].marker.setVisible(false);
@@ -167,12 +168,6 @@ function initMap() {//style reference from course video
 		mapTypeControl: false
 	});
 
-	
-	//initializing a drawing manager, chose polygon
-	
-		
-	//initializing a google map function for info window
-	var largeInfowindow = new google.maps.InfoWindow();
 	for (var i = 0; i < viewModel.filteredLocations().length; i++) {//iterating through the array which contains all the locations
 		var locId = viewModel.filteredLocations()[i].id;
 		var position = viewModel.filteredLocations()[i].location;
@@ -198,33 +193,41 @@ function initMap() {//style reference from course video
 			defaultIcon: defaultIcon,
 			id: locId,
 		});
-
+	
 		// Push the marker to our marker array.
 		viewModel.filteredLocations()[i].marker = marker;
 		markers.push(marker);
+		listner(marker);
 
 		// Create an onlick event to open an infowindow at each marker.
-        marker.addListener('click', function() {//onlclick 1) some animation 2) calling populateInfoWindow function
-        	var self = this;
-        	self.setAnimation(google.maps.Animation.BOUNCE);
-        	setTimeout(function() {
-        		self.setAnimation(null);
-        	}, 1400);
-        	populateInfoWindow(this, largeInfowindow);//contents which will be displayed in the infomarker area
-        });
-		// Two event listener - One for mouse over, one for mouse out. to change the marker image back and forth. 
-        marker.addListener('mouseover', function() {
-        	this.setIcon(this.highlightedIcon); 
-        });
-        marker.addListener('mouseout', function() {
-        	this.setIcon(this.defaultIcon);
-        });
+        
 	}
 }
 
-function makeMarkerIcon(beforeAfter, type) {
+	//initializing a google map function for info window
+var largeInfowindow;
 
-    var markerImage = new google.maps.MarkerImage(	'img/' + type + '_' + beforeAfter + '.png',
+listner = function(marker){
+	largeInfowindow = new google.maps.InfoWindow();
+	marker.addListener('click', function() {//onlclick 1) some animation 2) calling populateInfoWindow function
+				var self = this;
+				self.setAnimation(google.maps.Animation.BOUNCE);
+				setTimeout(function() {
+					self.setAnimation(null);
+				}, 1400);
+				populateInfoWindow(this, largeInfowindow);//contents which will be displayed in the infomarker area
+			});
+			// Two event listener - One for mouse over, one for mouse out. to change the marker image back and forth. 
+			marker.addListener('mouseover', function() {
+				this.setIcon(this.highlightedIcon); 
+			});
+			marker.addListener('mouseout', function() {
+				this.setIcon(this.defaultIcon);
+			});
+};
+
+function makeMarkerIcon(beforeAfter, type) {
+	var markerImage = new google.maps.MarkerImage(	'img/' + type + '_' + beforeAfter + '.png',
         new google.maps.Size(64, 64),
         new google.maps.Point(0, 0),
         new google.maps.Point(32, 64),
@@ -234,44 +237,43 @@ function makeMarkerIcon(beforeAfter, type) {
 
 function populateInfoWindow(marker, infowindow){//this function render the information into info window. It takes 2 parameter marker and infowindow
         // Check to make sure the infowindow is not already opened on this marker.
-        if (infowindow.marker != marker) {//if infowindow's marker parameter is not equal to the passed marker
+		if (infowindow.marker != marker) {//if infowindow's marker parameter is not equal to the passed marker
           // Clear the infowindow content to give the streetview time to load.
-          infowindow.setContent('');
-          infowindow.marker = marker;//setting the passed marker value to the infowindow's marker
-          // Make sure the marker property is cleared if the infowindow is closed.
-          infowindow.addListener('closeclick', function() {
-            infowindow.marker = null;
-          });
+			infowindow.setContent('');
+			infowindow.marker = marker;//setting the passed marker value to the infowindow's marker
+			  // Make sure the marker property is cleared if the infowindow is closed.
+			infowindow.addListener('closeclick', function() {
+				infowindow.marker = null;
+			});
           
-          var CLIENT_ID_Foursquare = '?client_id=LLZ2Y4XNAN2TO4UN4BOT4YCC3GVPMSG5BVI545HG1ZEMBDRM';
-		  var CLIENT_SECRET_Foursquare = '&client_secret=0UTHYFC5UAFI5FQEXVAB5WIQREZCLCANHT3LU2FA2O05GW3D';
+        var CLIENT_ID_Foursquare = '?client_id=LLZ2Y4XNAN2TO4UN4BOT4YCC3GVPMSG5BVI545HG1ZEMBDRM';
+		var CLIENT_SECRET_Foursquare = '&client_secret=0UTHYFC5UAFI5FQEXVAB5WIQREZCLCANHT3LU2FA2O05GW3D';
 
 	/*Foursquare api ajax request*/
-						$.ajax({// reference: foursquare for developers
-								type: "GET",
-								dataType: 'json',
-								cache: false,
-								url: 'https://api.foursquare.com/v2/venues/' + marker.id + CLIENT_ID_Foursquare + CLIENT_SECRET_Foursquare + '&v=20170115',
-								async: true,
-								success: function(data) {
-					//Map info windows to each Location in the markers array
-										var venuename = data.response.venue.name;
-										var formattedAddress = data.response.venue.location.formattedAddress;
-										console
-										infowindow.open(map, marker);
-										infowindow.setContent('<div>'+ venuename + '<br>'+ formattedAddress + '<br>' + marker.chance +'</div>');
+		$.ajax({// reference: foursquare for developers
+				type: "GET",
+				dataType: 'json',
+				cache: false,
+				url: 'https://api.foursquare.com/v2/venues/' + marker.id + CLIENT_ID_Foursquare + CLIENT_SECRET_Foursquare + '&v=20170115',
+				async: true,
+				success: function(data) {
+	//Map info windows to each Location in the markers array
+						var venuename = data.response.venue.name;
+						var formattedAddress = data.response.venue.location.formattedAddress;
+						infowindow.open(map, marker);
+						infowindow.setContent('<div>'+ venuename + '<br>'+ formattedAddress + '<br>' + marker.chance +'</div>');
 
 
-										/*callback function if succes - Will add the rating received from foursquare to the content of the info window*/
-										if (!data.response) {
-												data.response = 'No rating in foursquare';
-										}
-								},
-								error: function(data) {
-										/*callback function if error - an alert will be activaded to notify the user of the error*/
-										alert("Could not load data from foursquare.");
-								}
-						})
+						/*callback function if succes - Will add the rating received from foursquare to the content of the info window*/
+						if (!data.response) {
+								data.response = 'No rating in foursquare';
+						}
+				},
+				error: function(data) {
+						/*callback function if error - an alert will be activaded to notify the user of the error*/
+						alert("Could not load data from foursquare.");
+				}
+		});
         }
 	}
 
